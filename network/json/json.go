@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"leaf_vg/chanrpc"
-	"leaf_vg/log"
+	"github.com/XieChaoKang/leaf_vg/chanrpc"
+	"github.com/XieChaoKang/leaf_vg/log"
 	"reflect"
 )
 

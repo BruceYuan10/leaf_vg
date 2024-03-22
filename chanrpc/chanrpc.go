@@ -3,8 +3,8 @@ package chanrpc
 import (
 	"errors"
 	"fmt"
-	"leaf_vg/conf"
-	"leaf_vg/log"
+	"github.com/XieChaoKang/leaf_vg/conf"
+	"github.com/XieChaoKang/leaf_vg/log"
 	"runtime"
 )
 

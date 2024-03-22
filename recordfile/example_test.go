@@ -2,7 +2,7 @@ package recordfile_test
 
 import (
 	"fmt"
-	"leaf_vg/recordfile"
+	"github.com/XieChaoKang/leaf_vg/recordfile"
 )
 
 func Example() {
