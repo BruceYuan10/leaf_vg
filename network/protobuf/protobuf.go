@@ -4,9 +4,9 @@ import (
 	"encoding/binary"
 	"errors"
 	"fmt"
-	"github.com/XieChaoKang/leaf_vg/chanrpc"
-	"github.com/XieChaoKang/leaf_vg/log"
 	"github.com/golang/protobuf/proto"
+	"leaf_vg/chanrpc"
+	"leaf_vg/log"
 	"math"
 	"reflect"
 )

@@ -1,9 +1,9 @@
 package gate
 
 import (
-	"github.com/XieChaoKang/leaf_vg/chanrpc"
-	"github.com/XieChaoKang/leaf_vg/log"
-	"github.com/XieChaoKang/leaf_vg/network"
+	"leaf_vg/chanrpc"
+	"leaf_vg/log"
+	"leaf_vg/network"
 	"net"
 	"reflect"
 	"time"

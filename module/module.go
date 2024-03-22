@@ -1,8 +1,8 @@
 package module
 
 import (
-	"github.com/XieChaoKang/leaf_vg/conf"
-	"github.com/XieChaoKang/leaf_vg/log"
+	"leaf_vg/conf"
+	"leaf_vg/log"
 	"runtime"
 	"sync"
 )

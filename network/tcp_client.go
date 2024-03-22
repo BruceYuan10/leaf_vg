@@ -1,7 +1,7 @@
 package network
 
 import (
-	"github.com/XieChaoKang/leaf_vg/log"
+	"leaf_vg/log"
 	"net"
 	"sync"
 	"time"

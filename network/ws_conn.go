@@ -2,8 +2,8 @@ package network
 
 import (
 	"errors"
-	"github.com/XieChaoKang/leaf_vg/log"
 	"github.com/gorilla/websocket"
+	"leaf_vg/log"
 	"net"
 	"sync"
 )

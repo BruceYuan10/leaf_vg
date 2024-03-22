@@ -1,11 +1,11 @@
 package leaf
 
 import (
-	"github.com/XieChaoKang/leaf_vg/cluster"
-	"github.com/XieChaoKang/leaf_vg/conf"
-	"github.com/XieChaoKang/leaf_vg/console"
-	"github.com/XieChaoKang/leaf_vg/log"
-	"github.com/XieChaoKang/leaf_vg/module"
+	"leaf_vg/cluster"
+	"leaf_vg/conf"
+	"leaf_vg/console"
+	"leaf_vg/log"
+	"leaf_vg/module"
 	"os"
 	"os/signal"
 )

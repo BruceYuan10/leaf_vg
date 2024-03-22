@@ -1,4 +1,4 @@
-module github.com/XieChaoKang/leaf_vg
+module leaf_vg
 
 go 1.18
 

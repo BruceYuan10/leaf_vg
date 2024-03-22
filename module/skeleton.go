@@ -1,9 +1,10 @@
 package module
 
 import (
-	"github.com/XieChaoKang/leaf_vg/chanrpc"
-	"github.com/XieChaoKang/leaf_vg/console"
-	"github.com/XieChaoKang/leaf_vg/timer"
+	"leaf_vg/chanrpc"
+	"leaf_vg/console"
+	g "leaf_vg/go"
+	"leaf_vg/timer"
 	"time"
 )
 
