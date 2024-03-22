@@ -17,7 +17,7 @@ import (
 // -------------------------
 type Processor struct {
 	littleEndian bool
-	msgInfo      []*MsgInfo
+	msgInfo      map[uint16]*MsgInfo
 	msgID        map[reflect.Type]uint16
 	msgNameId    map[string]uint16
 }
@@ -39,6 +39,7 @@ type MsgRaw struct {
 func NewProcessor() *Processor {
 	p := new(Processor)
 	p.littleEndian = false
+	p.msgInfo = make(map[uint16]*MsgInfo)
 	p.msgID = make(map[reflect.Type]uint16)
 	p.msgNameId = make(map[string]uint16)
 	return p
@@ -50,7 +51,7 @@ func (p *Processor) SetByteOrder(littleEndian bool) {
 }
 
 // It's dangerous to call the method on routing or marshaling (unmarshaling)
-func (p *Processor) Register(msg proto.Message) uint16 {
+func (p *Processor) Register(msg proto.Message, eventType uint16) uint16 {
 	msgType := reflect.TypeOf(msg)
 	if msgType == nil || msgType.Kind() != reflect.Ptr {
 		log.Fatal("protobuf message pointer required")
@@ -64,9 +65,8 @@ func (p *Processor) Register(msg proto.Message) uint16 {
 
 	i := new(MsgInfo)
 	i.msgType = msgType
-	p.msgInfo = append(p.msgInfo, i)
-	id := uint16(len(p.msgInfo) - 1)
-	p.msgID[msgType] = id
+	p.msgInfo[eventType] = i
+	p.msgID[msgType] = eventType
 	name := msgType.String()
 	split := strings.Split(name, ".")
 	if len(split) == 0 {
@@ -78,8 +78,8 @@ func (p *Processor) Register(msg proto.Message) uint16 {
 	if len(split) > 1 {
 		name = split[len(split)-1]
 	}
-	p.msgNameId[name] = id
-	return id
+	p.msgNameId[name] = eventType
+	return eventType
 }
 
 // It's dangerous to call the method on routing or marshaling (unmarshaling)
@@ -160,12 +160,12 @@ func (p *Processor) Unmarshal(data []byte) (interface{}, error) {
 	} else {
 		id = binary.BigEndian.Uint16(data)
 	}
-	if id >= uint16(len(p.msgInfo)) {
-		return nil, fmt.Errorf("message id %v not registered", id)
-	}
 
 	// msg
-	i := p.msgInfo[id]
+	i, ok := p.msgInfo[id]
+	if !ok {
+		return nil, fmt.Errorf("message id %v not registered", id)
+	}
 	if i.msgRawHandler != nil {
 		return MsgRaw{id, data[2:]}, nil
 	} else {
@@ -200,6 +200,6 @@ func (p *Processor) Marshal(msg interface{}) ([][]byte, error) {
 // goroutine safe
 func (p *Processor) Range(f func(id uint16, t reflect.Type)) {
 	for id, i := range p.msgInfo {
-		f(uint16(id), i.msgType)
+		f(id, i.msgType)
 	}
 }
