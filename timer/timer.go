@@ -4,17 +4,21 @@ import (
 	"github.com/XieChaoKang/leaf_vg/conf"
 	"github.com/XieChaoKang/leaf_vg/log"
 	"runtime"
+	"sync"
 	"time"
 )
 
 // one dispatcher per goroutine (goroutine not safe)
 type Dispatcher struct {
 	ChanTimer chan *Timer
+	disMutex  *sync.Mutex
+	closeFlag bool
 }
 
 func NewDispatcher(l int) *Dispatcher {
 	disp := new(Dispatcher)
 	disp.ChanTimer = make(chan *Timer, l)
+	disp.disMutex = new(sync.Mutex)
 	return disp
 }
 
@@ -92,4 +96,14 @@ func (disp *Dispatcher) CronFunc(cronExpr *CronExpr, _cb func()) *Cron {
 
 	c.t = disp.AfterFunc(nextTime.Sub(now), cb)
 	return c
+}
+
+func (disp *Dispatcher) OnClose() {
+	disp.disMutex.Lock()
+	defer disp.disMutex.Unlock()
+
+	if !disp.closeFlag {
+		close(disp.ChanTimer)
+		disp.closeFlag = true
+	}
 }
