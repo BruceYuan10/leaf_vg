@@ -41,8 +41,9 @@ func (gate *Gate) Run(closeSig chan bool) {
 		wsServer.HTTPTimeout = gate.HTTPTimeout
 		wsServer.CertFile = gate.CertFile
 		wsServer.KeyFile = gate.KeyFile
-		wsServer.NewAgent = func(conn *network.WSConn) network.Agent {
+		wsServer.NewAgent = func(conn *network.WSConn, r *http.Request) network.Agent {
 			a := &agent{conn: conn, gate: gate}
+			a.SetIp(r)
 			if gate.AgentChanRPC != nil {
 				gate.AgentChanRPC.Go("NewAgent", a)
 			}
