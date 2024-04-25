@@ -4,7 +4,9 @@ import (
 	"github.com/XieChaoKang/leaf_vg/chanrpc"
 	"github.com/XieChaoKang/leaf_vg/log"
 	"github.com/XieChaoKang/leaf_vg/network"
+	"github.com/XieChaoKang/leaf_vg/util"
 	"net"
+	"net/http"
 	"reflect"
 	"time"
 )
@@ -86,6 +88,7 @@ func (gate *Gate) OnDestroy() {}
 type agent struct {
 	conn     network.Conn
 	gate     *Gate
+	ip       string
 	userData interface{}
 }
 
@@ -157,4 +160,14 @@ func (a *agent) UserData() interface{} {
 
 func (a *agent) SetUserData(data interface{}) {
 	a.userData = data
+}
+
+func (a *agent) SetIp(r *http.Request) {
+	ip := util.GetIp(r)
+	log.Debug("agent SetIp: %v", ip)
+	a.ip = ip
+}
+
+func (a *agent) GetIp() string {
+	return a.ip
 }

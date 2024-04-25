@@ -2,6 +2,7 @@ package gate
 
 import (
 	"net"
+	"net/http"
 )
 
 type Agent interface {
@@ -12,4 +13,6 @@ type Agent interface {
 	Destroy()
 	UserData() interface{}
 	SetUserData(data interface{})
+	SetIp(r *http.Request)
+	GetIp() string
 }
