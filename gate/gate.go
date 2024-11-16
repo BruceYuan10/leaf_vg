@@ -1,10 +1,10 @@
 package gate
 
 import (
-	"github.com/XieChaoKang/leaf_vg/chanrpc"
-	"github.com/XieChaoKang/leaf_vg/log"
-	"github.com/XieChaoKang/leaf_vg/network"
-	"github.com/XieChaoKang/leaf_vg/util"
+	"github.com/BruceYuan10/leaf_vg/chanrpc"
+	"github.com/BruceYuan10/leaf_vg/log"
+	"github.com/BruceYuan10/leaf_vg/network"
+	"github.com/BruceYuan10/leaf_vg/util"
 	"net"
 	"net/http"
 	"reflect"

@@ -2,7 +2,7 @@ package timer_test
 
 import (
 	"fmt"
-	"github.com/XieChaoKang/leaf_vg/timer"
+	"github.com/BruceYuan10/leaf_vg/timer"
 	"time"
 )
 
